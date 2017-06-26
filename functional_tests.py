@@ -23,10 +23,10 @@ class NewVisitorTest(unittest.TestCase):
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
-            '작업 아이템 입력'
+            'Enter a to-do item'
         )
 
-        inputbox.send_keys('공작깃털 사기')
+        inputbox.send_keys('Buy peacock feathers')
 
         # 엔터키를 치면 페이지가 갱신되면서 작업 목록에 "1: 공작깃털 사기" 아이템이 추가된다.
         # Keys 클래스는 Enter나 Ctrl같은 특수 키 입력을 전송하는 역할을 한다.
@@ -35,7 +35,8 @@ class NewVisitorTest(unittest.TestCase):
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
-            any(row.text == '1: 공작깃털 사기' for row in rows),
+            any(row.text == '1: Buy peacock feathers' for row in rows),
+            "New to-do item did not appear in table"
         )
 
         self.fail("Finish the test!")
